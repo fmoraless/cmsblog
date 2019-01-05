@@ -15,7 +15,7 @@
                         <img src="{{ $post->file }}" class="img-responsive">
                     @endif
                     {{ $post->excerpt }}
-                    <a href="#" class="pull-right">Leer más</a>
+                    <a href="{{ route('post',$post->slug) }}" class="pull-right">Leer más</a>
                 </div>
             </div>
         @endforeach

@@ -16,12 +16,12 @@ class Post extends Model
     //un Post pertenece a un Usuario
     public function user()
     {
-        return $this->belongsTo(User::tag);
+        return $this->belongsTo(User::class);
     }
     //un Post pertenece a una Categoria
     public function category()
     {
-        return $this->belongsTo(Category::tag);
+        return $this->belongsTo(Category::class);
     }
 
     //Un Post puede estar relacionado con muchas etiquetas
