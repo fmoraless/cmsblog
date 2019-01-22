@@ -22,7 +22,7 @@
                                         <h2>Administrar <b>Categorías</b></h2>
                                     </div>
                                     <div class="col-sm-6">
-                                        <a href="{{ route('categories.create') }}" class="btn btn-success"><i class="fas fa-category"></i><span> Nueva Categoría</span></a>
+                                        <a href="{{ route('categories.create') }}" class="btn btn-success"><i class="fas fa-plus-square"></i><span> Nueva Categoría</span></a>
                                         <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="fas fa-trash-alt"></i> <span> Eliminar</span></a>
                                     </div>
                                 </div>
@@ -55,12 +55,14 @@
                                     <td width="10px">
                                         <a href="{{ route('categories.show', $category->id) }}"
                                         class="btn btn-sm btn-primary">
+                                            <i class="fas fa-info"></i>
                                             Ver
                                         </a>
                                     </td>
                                     <td width="10px">
                                         <a href="{{ route('categories.edit', $category->id) }}"
                                            class="btn btn-sm btn-primary">
+                                            <i class="fas fa-edit"></i>
                                             Editar
                                         </a>
                                     </td>
@@ -68,6 +70,7 @@
                                         {!! Form::open(['route' => ['categories.destroy', $category->id],
                                         'method' => 'DELETE']) !!}
                                             <button class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash-alt"></i>
                                                 Eliminar
                                             </button>
                                         {!! Form::close() !!}
