@@ -26,7 +26,7 @@
                                 </div>
                                 <hr>
                                 <div class="card-body">
-                                    {!! Form::model($tag, ['route' => ['posts.update', $tag->id],
+                                    {!! Form::model($post, ['route' => ['posts.update', $post->id],
                                     'method' => 'PUT']) !!}
                                     @include('admin.posts.partials.form')
                                     {!! Form::close() !!}

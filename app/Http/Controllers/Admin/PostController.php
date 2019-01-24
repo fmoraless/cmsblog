@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 
 use App\Post;
+use App\Category;
+use App\Tag;
 
 class PostController extends Controller
 {
@@ -23,7 +26,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'DESC')->paginate();
+        $posts = Post::orderBy('id', 'DESC')
+            ->where('user_id',auth()->user()->id)
+            ->paginate();
 
         //dd($posts); //para visualizar sin tener la vista creada.
         return view('admin.posts.index',compact('posts'));
@@ -36,7 +41,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create'); //este método muestra el formulario
+        $categories = Category::orderBy('name', 'ASC')->pluck('name', 'id');
+        $tags =       Tag::orderBy('name', 'ASC')->get();
+        return view('admin.posts.create', compact('categories','tags')); //este método muestra el formulario
     }
 
     /**
@@ -74,9 +81,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $tag = Post::find($id); //muestra la vista para editar
+        $categories = Category::orderBy('name', 'ASC')->pluck('name', 'id');
+        $tags =       Tag::orderBy('name', 'ASC')->get();
+        $post =       Post::find($id); //muestra la vista para editar
 
-        return view('admin.posts.edit', compact('tag'));
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -88,11 +97,11 @@ class PostController extends Controller
      */
     public function update(PostUpdateRequest $request, $id)
     {
-        $tag = Post::find($id); //guarda los datos editados
+        $post = Post::find($id); //guarda los datos editados
 
-        $tag->fill($request->all())->save();
+        $post->fill($request->all())->save();
 
-        return redirect()->route('posts.edit', $tag->id)
+        return redirect()->route('posts.edit', $post->id)
             ->with('info', 'Entrada actualizada con éxito');
     }
 
@@ -104,7 +113,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $tag = Post::find($id)->delete();  //Elimina un registro
+        $post = Post::find($id)->delete();  //Elimina un registro
 
         return back()->with('info', 'Eliminado correctamente');
     }
