@@ -28,7 +28,7 @@ class PostStoreRequest extends FormRequest
             'slug' => 'required|unique:categories,slug,' . $this->post,
             'user_id' => 'required|integer',
             'category_id' => 'required|integer',
-            'tags_id' => 'required|array',
+            'tags' => 'required|array',
             'body' => 'required',
             'status' => 'required|in:DRAFT,PUBLISHED',
         ];
